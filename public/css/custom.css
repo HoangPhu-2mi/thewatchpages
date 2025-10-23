@@ -1,0 +1,56 @@
+/* public/css/custom.css */
+a{
+    text-decoration: none;
+}
+.kc{
+    margin-top: 8px;
+}
+.underline:hover{
+    text-decoration-line: underline;
+    text-underline-offset: 4px;
+}
+.ul-footer{
+    margin-bottom: 0px;
+}
+/* Tùy chỉnh body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Nền xám nhạt */
+}
+
+/* Thanh Header */
+.main-header {
+    background-color: #ffffff;
+    border-bottom: 3px solid #000000; /* Đường viền đen đậm */
+}
+
+/* Các liên kết Menu */
+.navbar-nav .nav-link {
+    color: #333 !important;
+    font-weight: 600;
+    margin: 0 10px;
+}
+
+/* Card sản phẩm */
+.product-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* resources/css/custom.css */
+
+/* Đảm bảo menu link có viền mỏng khi hover */
+.hover-border-dark:hover {
+    border-bottom: 2px solid #212529 !important; /* Màu đen của Bootstrap */
+}
+
+/* Tăng cường khoảng cách giữa các mục menu nếu cần */
+.navbar-nav .nav-item .nav-link {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
