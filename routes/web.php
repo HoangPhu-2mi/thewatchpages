@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 // Tuyến đường (Route) mặc định cho trang chủ
@@ -8,15 +9,22 @@ Route::get('/', function () {
     return view('home'); 
 });
 
-// Bạn cũng có thể thêm các route cơ bản khác để test layout:
-/*
-Route::get('/products', function () {
-    // Tạm thời trả về trang chủ để test menu
-    return view('home'); 
-});
 
-Route::get('/cart', function () {
-    // Tạm thời trả về một view trống
-    return view('cart'); 
+
+// Sản phẩm
+Route::prefix('products')->controller(ProductsController::class)->group(function () {
+    Route::get('/', 'index')->name('products.index');
+
+    Route::get('/search', 'index')->name('products.search');
+
+    Route::get('/search-suggest', 'searchSuggest')
+    ->name('products.search.suggest');
+
+    // Route::get('/favorite/{dspid}', 'favorite')->name('products.favorite');
+
+    Route::get('/{dspid}/{spid}', 'show')
+        ->where(['dong' => '.*', 'sanpham' => '.*'])
+        ->name('products.show');
+
+  
 });
-*/
