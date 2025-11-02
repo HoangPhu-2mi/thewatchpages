@@ -28,7 +28,7 @@
                         <h2 class="h3 fw-bold text-uppercase mb-4" style="line-height: 1.2;">
                             Shop Our Selection of Handpicked Watches
                         </h2>
-                        <a href="{{ url('/shop') }}" class="btn btn-dark btn-lg rounded-0 px-5 py-3 fw-bold text-uppercase">
+                        <a href="{{ route('products.index') }}" class="btn btn-dark btn-lg rounded-0 px-5 py-3 fw-bold text-uppercase">
                             Shop Watches
                         </a>
                     </div>

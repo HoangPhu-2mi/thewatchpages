@@ -27,14 +27,16 @@
             </a>
 
             <div class="d-none d-lg-flex flex-grow-1 justify-content-center px-4">
-                <form class="d-flex w-100" style="max-width: 500px;">
-                    <input class="form-control timkiem rounded-0 border-dark" type="search" 
-                           placeholder="Search amongst 26,451 watches, references, brands" aria-label="Search">
+                <form action="{{ route('products.search') }}" method="GET" class="d-flex w-100" style="max-width: 500px; position: relative;">
+                    <input id="search-input" name="search" class="form-control timkiem rounded-0 border-dark" type="search" 
+                        placeholder="Search amongst 26,451 watches, references, brands" aria-label="Search">
                     <button class="btn btn-outline-dark rounded-0 border-start-0" type="submit" aria-label="Tìm kiếm">
                         <svg width="18px" height="18px" class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-    </svg>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
                     </button>
+
+                    <div id="search-suggest" style="display: none;"></div>
                 </form>
             </div>
             
@@ -43,24 +45,24 @@
                 <li class="nav-item ">
                     <a class="nav-link p-0 iconheader" href="{{ url('/account') }}" aria-label="Tài khoản của tôi">
                        <svg width="24px" height="24px" aria-hidden="true" class="w-5 h-5 sm:h-6 sm:w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>
-</svg>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>
+                        </svg>
                     </a>
                 </li>
                 
                 <li class="nav-item ">
                     <a class="nav-link p-0 iconheader"  href="{{ url('/my-favorites') }}" aria-label="Mục yêu thích">
                         <svg width="24px" height="24px"  aria-hidden="true" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path>
-</svg>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path>
+                        </svg>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link p-0 iconheader" href="{{ url('/cart') }}" aria-label="Giỏ hàng">
                         <svg width="24px" height="24px" aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"></path>
-</svg>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"></path>
+                    </svg>
                     </a>
                 </li>
             </ul>
@@ -72,7 +74,7 @@
             <div class="collapse navbar-collapse w-100 justify-content-center" id="mainMenu">
                 <ul class="navbar-nav text-uppercase fw-semibold" style="letter-spacing: 0.1em;">
                     <li class="nav-item"><a class="nav-link px-3 py-2 border-bottom border-white hover-border-dark" href="{{ url('/finder') }}">WATCH FINDER</a></li>
-                    <li class="nav-item"><a class="nav-link px-3 py-2 border-bottom border-white hover-border-dark" href="{{ url('/shop') }}">SHOP</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 py-2 border-bottom border-white hover-border-dark" href="{{  route('products.index')}}">SHOP</a></li>
                     <li class="nav-item"><a class="nav-link px-3 py-2 border-bottom border-white hover-border-dark" href="{{ url('/brands') }}">BRANDS</a></li>
                     <li class="nav-item"><a class="nav-link px-3 py-2 border-bottom border-white hover-border-dark" href="{{ url('/new-watches') }}">NEW WATCHES 2025</a></li>
                     <li class="nav-item"><a class="nav-link px-3 py-2 border-bottom border-white hover-border-dark" href="{{ url('/editorial') }}">EDITORIAL</a></li>
@@ -80,11 +82,84 @@
                 </ul>
             </div>
             
-            <form class="d-lg-none d-flex w-100 px-3 py-2" role="search">
-                <input class="form-control form-control-sm me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                <button class="btn btn-outline-dark btn-sm" type="submit">Tìm</button>
-            </form>
+            <!-- <form action="{{ route('products.search') }}" method="GET" class="d-flex w-100" style="max-width: 500px;">
+                <input name="search" class="form-control timkiem rounded-0 border-dark" type="search" 
+                    placeholder="Search amongst 26,451 watches, references, brands" aria-label="Search">
+                <button class="btn btn-outline-dark rounded-0 border-start-0" type="submit" aria-label="Tìm kiếm">
+                </button>
+            </form> -->
+
             
         </div>
     </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('search-input');
+    if (!input) return; 
+    const suggestBox = document.getElementById('search-suggest');
+
+    input.addEventListener('input', async function() {
+        const query = this.value.trim();
+
+        if (!query) {
+            suggestBox.style.display = 'none';
+            suggestBox.innerHTML = '';
+            return;
+        }
+
+        const response = await fetch(`/products/search-suggest?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        console.log(data);
+        
+        if (data.length === 0) {
+            suggestBox.innerHTML = '<div class="p-2 text-muted">Không tìm thấy sản phẩm</div>';
+        } else {
+            suggestBox.innerHTML = data.map(p => `
+                <a href="/products/${p.dspid}/${p.spid}" 
+                    class="d-flex align-items-center p-2 text-dark text-decoration-none border-bottom"
+                    style="gap: 10px;">
+                    <img src="${p.image_url || '/images/no-image.png'}" 
+                        alt="${p.Ten_SP}" 
+                        width="50" height="50"
+                        style="object-fit: cover; border-radius: 8px; border: 1px solid #eee;">
+                    <div class="flex-grow-1">
+                        <div class="fw-bold">${p.Ten_SP}</div>
+                        <small class="text-muted">${p.brand}</small>
+                    </div>
+                </a>
+            `).join('');
+
+        }
+
+        suggestBox.style.display = 'block';
+    });
+
+    // Ẩn khi click ra ngoài
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#search-suggest') && e.target !== input) {
+            suggestBox.style.display = 'none';
+        }
+    });
+});
+</script>
+<style>
+#search-suggest {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    overflow-y: auto;
+    max-height: 300px;
+}
+#search-suggest a:hover {
+    background-color: #f8f9fa;
+}
+
+/* Mỗi item */
+</style>
 </header>
