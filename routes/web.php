@@ -27,3 +27,4 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/cart/add/{spid}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update/{ghid}', [CartController::class, 'update'])->name('cart.update');
 Route::get('/cart/remove/{ghid}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
