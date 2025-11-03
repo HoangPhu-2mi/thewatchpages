@@ -11,6 +11,62 @@
             margin: 0px !important;
             padding: 0px !important;
         }
+
+        .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #000;
+}
+.dropdown-header {
+    font-size: 14px;
+}
+
+/* Khối dropdown ẩn mặc định */
+.user-dropdown .user-dropdown-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    padding: 10px 15px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+    z-index: 1000;
+}
+
+/* Khi hover icon → bung ra */
+.user-dropdown:hover .user-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Hiệu ứng icon */
+.user-dropdown .iconheader svg {
+    transition: 0.25s ease;
+}
+.user-dropdown:hover .iconheader svg {
+    color: #000;
+    transform: scale(1.05);
+}
+
+/* Tùy chỉnh link trong dropdown */
+.user-dropdown-menu .dropdown-item {
+    display: block;
+    color: #222;
+    padding: 6px 0;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+.user-dropdown-menu .dropdown-item:hover {
+    color: #000;
+    font-weight: 500;
+}
+
+
     </style>
     <div class="border-bottom border-gray-200">
         <div class="container d-flex align-items-center justify-content-between py-3">
@@ -40,13 +96,55 @@
             
             <ul class="navbar-nav flex-row ms-auto align-items-center">
                 
-                <li class="nav-item ">
-                    <a class="nav-link p-0 iconheader" href="{{ url('/account') }}" aria-label="Tài khoản của tôi">
-                       <svg width="24px" height="24px" aria-hidden="true" class="w-5 h-5 sm:h-6 sm:w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>
-</svg>
-                    </a>
-                </li>
+                <!-- Tài khoản -->
+            <li class="nav-item dropdown position-relative user-dropdown">
+    @auth
+        <a class="nav-link p-0 iconheader" href="#" aria-expanded="false">
+            <svg width="24px" height="24px" xmlns="http://www.w3.org/2000/svg"
+                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.1a7.5 7.5 0 0 1 15 0A17.9 17.9 0 0 1 12 21.75a17.9 17.9 0 0 1-7.5-1.65Z" />
+            </svg>
+        </a>
+
+        <div class="user-dropdown-menu">
+            <div class="dropdown-header text-capitalize fw-semibold text-center mb-2">
+                Hi, {{ Auth::user()->TaiKhoan }}
+            </div>
+            <hr class="my-1">
+            <a class="dropdown-item" href="{{ route('brand.alerts') }}">Brand Alerts</a>
+            <a class="dropdown-item" href="{{ route('orders') }}">My Orders</a>
+            <a class="dropdown-item" href="{{ route('account.details') }}">Account Details</a>
+            <a class="dropdown-item" href="{{ route('address.book') }}">Address Book</a>
+            <a class="dropdown-item" href="{{ route('returns.refunds') }}">Returns & Refunds</a>
+            <hr class="my-1">
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="dropdown-item  w-100 text-start">Sign Out</button>
+            </form>
+        </div>
+    @else
+        <a class="nav-link p-0 iconheader" href="#" aria-label="Đăng nhập">
+            <svg width="24px" height="24px" xmlns="http://www.w3.org/2000/svg"
+                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.1a7.5 7.5 0 0 1 15 0A17.9 17.9 0 0 1 12 21.75a17.9 17.9 0 0 1-7.5-1.65Z" />
+            </svg>
+        </a>
+
+        <div class="user-dropdown-menu">
+            <div class="text-center">
+                <a href="{{ route('login') }}" class="btn btn-dark w-100 fw-semibold py-2">SIGN IN</a>
+                <p class="mt-2 mb-0 small">
+                    Don't have an account yet?
+                    <a href="{{ route('register.form') }}" class="text-decoration-underline">Register</a>
+                </p>
+            </div>
+        </div>
+    @endauth
+</li>
+
+
                 
                 <li class="nav-item ">
                     <a class="nav-link p-0 iconheader"  href="{{ url('/my-favorites') }}" aria-label="Mục yêu thích">
