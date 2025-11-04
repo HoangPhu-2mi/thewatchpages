@@ -12,8 +12,12 @@ class CartController extends Controller
     // Hiển thị giỏ hàng của người dùng
     public function index()
     {
-        $userId = Auth::id(); // hoặc session()->get('ngid')
-        $cartItems = GioHang::with('sanPham')
+        $userId = 2; // hoặc session()->get('ngid')
+        $cartItems = GioHang::with([
+            'sanPham.hinhAnh' => function ($q) {
+                $q->limit(1); // chỉ lấy 1 hình
+            }
+        ])
             ->where('ngid', $userId)
             ->get();
 
@@ -23,7 +27,7 @@ class CartController extends Controller
     // Thêm sản phẩm vào giỏ
     public function add(Request $request, $spid)
     {
-        $userId = Auth::id();
+        $userId = 2;
 
         $cartItem = GioHang::where('ngid', $userId)
             ->where('spid', $spid)
